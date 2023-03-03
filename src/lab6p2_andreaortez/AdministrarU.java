@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdministrarU {
-
     private ArrayList<Usuario> usuarios = new ArrayList();
     private File archivo = null;//ROM
 
@@ -40,12 +39,14 @@ public class AdministrarU {
             bw = new BufferedWriter(fw);
             for (Usuario u : usuarios) {
                 if (u instanceof Artista) {
+                    bw.write("Artista" + "|");
                     bw.write(u.getUser() + "|");
                     bw.write(u.getContra() + "|");
-                    bw.write(u.getEdad() + "1|");
-                    bw.write(((Artista) u).getNombre()+ "\n");
+                    bw.write(u.getEdad() + "|");
+                    bw.write(((Artista) u).getNombre() + "\n");
                 }
                 if (u instanceof Oyente) {
+                    bw.write("Oyente" + "|");
                     bw.write(u.getUser() + "|");
                     bw.write(u.getContra() + "|");
                     bw.write(u.getEdad() + "\n");
@@ -71,10 +72,10 @@ public class AdministrarU {
                     String[] token = cad.split("\\|");
                     for (Usuario u : usuarios) {
                         if (u instanceof Artista) {
-                            usuarios.add(new Artista(token[3], token[0], token[1], Integer.parseInt(token[2])));
+                            usuarios.add(new Artista(token[4], token[1], token[2], Integer.parseInt(token[3])));
                         }
                         if (u instanceof Oyente) {
-                            usuarios.add(new Oyente(token[0], token[1], Integer.parseInt(token[2])));
+                            usuarios.add(new Oyente(token[1], token[2], Integer.parseInt(token[3])));
                         }
 //                        String[] song = token[4].split(",");
 //                        for (int i = 0; i < song.length - 1; i ++) {

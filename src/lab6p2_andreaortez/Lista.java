@@ -11,7 +11,7 @@ public class Lista {
     public Lista() {
     }
 
-    public Lista(String nombre, String oyente, int likes) {
+    public Lista(String nombre, int likes, String oyente) {
         this.nombre = nombre;
         this.oyente = oyente;
         this.likes = likes;

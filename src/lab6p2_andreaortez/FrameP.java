@@ -7,25 +7,28 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class FrameP extends javax.swing.JFrame {
-
+    
     ArrayList<Usuario> usuarios = new ArrayList();
     int tipo;
     AdministrarU au = new AdministrarU("./usuarios.txt");
-
+    
     public FrameP() throws IOException {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         au.cargarArchivo();
         pn_registrarA.setVisible(false);
         pn_registrarO.setVisible(false);
-
+        S_Artista.setVisible(false);
         usuarios = au.getUsuarios();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        S_Artista = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         Iniciar_Registrar = new javax.swing.JPanel();
         pn_iniciarsesión = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -48,6 +51,31 @@ public class FrameP extends javax.swing.JFrame {
         tf_edadO = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        S_Artista.setBackground(new java.awt.Color(32, 32, 32));
+        S_Artista.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Crear Lanzamiento");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(175, 175, 175)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(423, Short.MAX_VALUE))
+        );
+
+        S_Artista.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 630));
 
         Iniciar_Registrar.setBackground(new java.awt.Color(32, 32, 32));
         Iniciar_Registrar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -260,10 +288,20 @@ public class FrameP extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Iniciar_Registrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(S_Artista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Iniciar_Registrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(S_Artista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -332,12 +370,13 @@ public class FrameP extends javax.swing.JFrame {
             switch (tipo) {
                 case 1://artista
                     Iniciar_Registrar.setVisible(false);
-                    //                    Registro.setVisible(true);
+                    S_Artista.setVisible(true);
                     //                    Portal.setVisible(false);
                     //                    Canvas.setVisible(false);
                     break;
                 case 2://oyente
                     Iniciar_Registrar.setVisible(false);
+                    S_Artista.setVisible(false);
                     //                    Registro.setVisible(false);
                     //                    Portal.setVisible(true);
                     //                    Canvas.setVisible(false);
@@ -378,6 +417,8 @@ public class FrameP extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(FrameP.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        S_Artista.setVisible(true);
     }//GEN-LAST:event_bt_registrarAMouseClicked
 
     private void tf_usuarioOMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_usuarioOMouseEntered
@@ -425,7 +466,7 @@ public class FrameP extends javax.swing.JFrame {
             tf_edadO.setText("Edad");
         }
     }//GEN-LAST:event_tf_edadOMouseExited
-
+    
     private boolean ValidarUsuario(String admin, String contra) {
         for (Usuario u : usuarios) {
             if (u.getUser().equals(admin) && u.getContra().equals(contra)) {
@@ -439,7 +480,7 @@ public class FrameP extends javax.swing.JFrame {
         }
         return false;
     }
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -478,6 +519,7 @@ public class FrameP extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Iniciar_Registrar;
+    private javax.swing.JPanel S_Artista;
     private javax.swing.JButton bt_iniciar;
     private javax.swing.JButton bt_registrarA;
     private javax.swing.JButton bt_registrarO;
@@ -485,6 +527,8 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel pn_iniciarsesión;
     private javax.swing.JPanel pn_registrarA;
     private javax.swing.JPanel pn_registrarO;

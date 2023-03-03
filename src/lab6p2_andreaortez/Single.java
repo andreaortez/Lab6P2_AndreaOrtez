@@ -1,16 +1,14 @@
 
 package lab6p2_andreaortez;
 
-import java.util.Date;
-
 public class Single extends Lanzamiento{
     Cancion cancion;
 
     public Single() {
     }
 
-    public Single(Cancion cancion, String titulo, Date fecha, int likes) {
-        super(titulo, fecha, likes);
+    public Single(Cancion cancion, String titulo, String fecha, int likes, String album) {
+        super(titulo, fecha, likes, album);
         this.cancion = cancion;
     }
 

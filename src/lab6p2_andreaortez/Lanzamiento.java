@@ -1,20 +1,18 @@
 
 package lab6p2_andreaortez;
 
-import java.util.Date;
-
 public class Lanzamiento {
-    protected String titulo;
-    protected Date fecha;
+    protected String titulo, fecha, album;
     protected int likes;
 
     public Lanzamiento() {
     }
 
-    public Lanzamiento(String titulo, Date fecha, int likes) {
+    public Lanzamiento(String titulo, String fecha, int likes, String album) {
         this.titulo = titulo;
         this.fecha = fecha;
         this.likes = likes;
+        this.album = album;
     }
 
     public String getTitulo() {
@@ -25,12 +23,20 @@ public class Lanzamiento {
         this.titulo = titulo;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public String getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(String album) {
+        this.album = album;
     }
 
     public int getLikes() {

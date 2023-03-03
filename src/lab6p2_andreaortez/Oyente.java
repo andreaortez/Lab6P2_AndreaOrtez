@@ -25,7 +25,6 @@ public class Oyente extends Usuario{
         }else{
             
         }
-        
     }
 
     public ArrayList<Cancion> getCancionesf() {
