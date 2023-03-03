@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdministrarL {
-
     private ArrayList<Lanzamiento> lanzamientos = new ArrayList();
     private File archivo = null;//ROM
 
@@ -89,7 +88,6 @@ public class AdministrarL {
             } catch (Exception e) {
             }
             sc.close();
-
-        }//FIN IF
+        }
     }
 }

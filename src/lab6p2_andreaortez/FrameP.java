@@ -23,7 +23,7 @@ public class FrameP extends javax.swing.JFrame {
         S_Artista.setVisible(false);
         
         usuarios = au.getUsuarios();
-        
+        b.setUsuarios(usuarios);
     }
     
     @SuppressWarnings("unchecked")
