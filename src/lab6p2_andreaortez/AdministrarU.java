@@ -42,18 +42,13 @@ public class AdministrarU {
                 if (u instanceof Artista) {
                     bw.write(u.getUser() + "|");
                     bw.write(u.getContra() + "|");
-                    bw.write(u.getEdad() + "|");
-                    bw.write(((Artista) u).getNombre() + "|");
-                    bw.write(((Artista) u).getCanciones() + "\n");
-                    bw.write(((Artista) u).getAlbumes() + "\n");
+                    bw.write(u.getEdad() + "1|");
+                    bw.write(((Artista) u).getNombre()+ "\n");
                 }
                 if (u instanceof Oyente) {
                     bw.write(u.getUser() + "|");
                     bw.write(u.getContra() + "|");
-                    bw.write(u.getEdad() + "|");
-                    bw.write(((Oyente) u).getCancionesf() + "|");
-                    bw.write(((Oyente) u).getLista() + "\n");
-                    bw.write(((Oyente) u).getLike() + "\n");
+                    bw.write(u.getEdad() + "\n");
                 }
             }
             bw.flush();
@@ -78,11 +73,14 @@ public class AdministrarU {
                         if (u instanceof Artista) {
                             usuarios.add(new Artista(token[3], token[0], token[1], Integer.parseInt(token[2])));
                         }
-                        String[] song = token[4].split(",");
+                        if (u instanceof Oyente) {
+                            usuarios.add(new Oyente(token[0], token[1], Integer.parseInt(token[2])));
+                        }
+//                        String[] song = token[4].split(",");
 //                        for (int i = 0; i < song.length - 1; i ++) {
 //                            usuarios.get(cont).getAccesorios().add(song[i]);
 //                        }
-                        String[] album = token[5].split(",");
+//                        String[] album = token[5].split(",");
 //                        for (int i = 0; i < album.length - 1; i ++) {
 //                            usuarios.get(cont).getAccesorios().add(album[i]);
 //                        }

@@ -4,16 +4,25 @@ package lab6p2_andreaortez;
 import java.util.ArrayList;
 
 public class Lista {
-    private String nombre;
+    private String nombre, oyente;
     private int likes;
     ArrayList <Cancion> canciones = new ArrayList();
 
     public Lista() {
     }
 
-    public Lista(String nombre, int likes) {
+    public Lista(String nombre, String oyente, int likes) {
         this.nombre = nombre;
+        this.oyente = oyente;
         this.likes = likes;
+    }
+
+    public String getOyente() {
+        return oyente;
+    }
+
+    public void setOyente(String oyente) {
+        this.oyente = oyente;
     }
 
     public String getNombre() {
