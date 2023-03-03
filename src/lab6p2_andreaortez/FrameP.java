@@ -1,16 +1,22 @@
 package lab6p2_andreaortez;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class FrameP extends javax.swing.JFrame {
 
     ArrayList<Usuario> usuarios = new ArrayList();
     int tipo;
+    AdministrarU au = new AdministrarU("./usuarios.txt");
 
-    public FrameP() {
+    public FrameP() throws IOException {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+        au.cargarArchivo();
+        pn_registrarA.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -18,28 +24,42 @@ public class FrameP extends javax.swing.JFrame {
     private void initComponents() {
 
         Iniciar_Registrar = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        pn_iniciarsesión = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tf_contra = new javax.swing.JTextField();
         bt_iniciar = new javax.swing.JButton();
         tf_usuario = new javax.swing.JTextField();
-        bt_registrar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        pn_registrarA = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        tf_nombreA = new javax.swing.JTextField();
+        tf_usuarioA = new javax.swing.JTextField();
+        bt_registrarA = new javax.swing.JButton();
+        tf_contraA = new javax.swing.JTextField();
+        tf_edadA = new javax.swing.JTextField();
+        pn_registrarO = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        tf_usuarioA1 = new javax.swing.JTextField();
+        bt_registrarO = new javax.swing.JButton();
+        tf_contraA1 = new javax.swing.JTextField();
+        tf_edadA1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Iniciar_Registrar.setBackground(new java.awt.Color(32, 32, 32));
+        Iniciar_Registrar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(32, 32, 32));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pn_iniciarsesión.setBackground(new java.awt.Color(32, 32, 32));
+        pn_iniciarsesión.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("MÚSICA PARA TODOS.");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1390, -1));
+        pn_iniciarsesión.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1390, -1));
 
         tf_contra.setBackground(new java.awt.Color(51, 51, 51));
-        tf_contra.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        tf_contra.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         tf_contra.setForeground(new java.awt.Color(153, 153, 153));
         tf_contra.setText("Contraseña");
         tf_contra.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -50,7 +70,7 @@ public class FrameP extends javax.swing.JFrame {
                 tf_contraMouseExited(evt);
             }
         });
-        jPanel1.add(tf_contra, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, 432, 29));
+        pn_iniciarsesión.add(tf_contra, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, 432, 40));
 
         bt_iniciar.setBackground(new java.awt.Color(25, 187, 81));
         bt_iniciar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -61,10 +81,10 @@ public class FrameP extends javax.swing.JFrame {
                 bt_iniciarMouseClicked(evt);
             }
         });
-        jPanel1.add(bt_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 280, 160, 40));
+        pn_iniciarsesión.add(bt_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 280, 160, 40));
 
         tf_usuario.setBackground(new java.awt.Color(51, 51, 51));
-        tf_usuario.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        tf_usuario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         tf_usuario.setForeground(new java.awt.Color(153, 153, 153));
         tf_usuario.setText("Ingrese su usuario");
         tf_usuario.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -75,27 +95,162 @@ public class FrameP extends javax.swing.JFrame {
                 tf_usuarioMouseExited(evt);
             }
         });
-        jPanel1.add(tf_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 140, 432, 29));
+        pn_iniciarsesión.add(tf_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 140, 432, 40));
 
-        bt_registrar.setBackground(new java.awt.Color(25, 187, 81));
-        bt_registrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        bt_registrar.setForeground(new java.awt.Color(255, 255, 255));
-        bt_registrar.setText("REGISTRARSE");
-        jPanel1.add(bt_registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 280, 150, 40));
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("No tienes cuenta, dale click aqui para registrarte");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        pn_iniciarsesión.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 330, -1, -1));
 
-        javax.swing.GroupLayout Iniciar_RegistrarLayout = new javax.swing.GroupLayout(Iniciar_Registrar);
-        Iniciar_Registrar.setLayout(Iniciar_RegistrarLayout);
-        Iniciar_RegistrarLayout.setHorizontalGroup(
-            Iniciar_RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        Iniciar_RegistrarLayout.setVerticalGroup(
-            Iniciar_RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Iniciar_RegistrarLayout.createSequentialGroup()
-                .addGap(168, 168, 168)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(159, Short.MAX_VALUE))
-        );
+        Iniciar_Registrar.add(pn_iniciarsesión, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 168, -1, 393));
+
+        pn_registrarA.setBackground(new java.awt.Color(32, 32, 32));
+        pn_registrarA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("MÚSICA PARA TODOS.");
+        pn_registrarA.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1390, -1));
+
+        tf_nombreA.setBackground(new java.awt.Color(51, 51, 51));
+        tf_nombreA.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tf_nombreA.setForeground(new java.awt.Color(153, 153, 153));
+        tf_nombreA.setText("Nombre Artístico");
+        tf_nombreA.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tf_nombreAMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tf_nombreAMouseExited(evt);
+            }
+        });
+        pn_registrarA.add(tf_nombreA, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, 432, 40));
+
+        tf_usuarioA.setBackground(new java.awt.Color(51, 51, 51));
+        tf_usuarioA.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tf_usuarioA.setForeground(new java.awt.Color(153, 153, 153));
+        tf_usuarioA.setText("Nombre de usuario");
+        tf_usuarioA.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tf_usuarioAMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tf_usuarioAMouseExited(evt);
+            }
+        });
+        pn_registrarA.add(tf_usuarioA, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 432, 40));
+
+        bt_registrarA.setBackground(new java.awt.Color(25, 187, 81));
+        bt_registrarA.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        bt_registrarA.setForeground(new java.awt.Color(255, 255, 255));
+        bt_registrarA.setText("REGISTRARSE");
+        bt_registrarA.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_registrarAMouseClicked(evt);
+            }
+        });
+        pn_registrarA.add(bt_registrarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, 150, 40));
+
+        tf_contraA.setBackground(new java.awt.Color(51, 51, 51));
+        tf_contraA.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tf_contraA.setForeground(new java.awt.Color(153, 153, 153));
+        tf_contraA.setText("Contraseña");
+        tf_contraA.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tf_contraAMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tf_contraAMouseExited(evt);
+            }
+        });
+        pn_registrarA.add(tf_contraA, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 432, 40));
+
+        tf_edadA.setBackground(new java.awt.Color(51, 51, 51));
+        tf_edadA.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tf_edadA.setForeground(new java.awt.Color(153, 153, 153));
+        tf_edadA.setText("Edad");
+        tf_edadA.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tf_edadAMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tf_edadAMouseExited(evt);
+            }
+        });
+        pn_registrarA.add(tf_edadA, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, 432, 40));
+
+        Iniciar_Registrar.add(pn_registrarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, -1, 460));
+
+        pn_registrarO.setBackground(new java.awt.Color(32, 32, 32));
+        pn_registrarO.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("MÚSICA PARA TODOS.");
+        pn_registrarO.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1390, -1));
+
+        tf_usuarioA1.setBackground(new java.awt.Color(51, 51, 51));
+        tf_usuarioA1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tf_usuarioA1.setForeground(new java.awt.Color(153, 153, 153));
+        tf_usuarioA1.setText("Nombre de usuario");
+        tf_usuarioA1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tf_usuarioA1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tf_usuarioA1MouseExited(evt);
+            }
+        });
+        pn_registrarO.add(tf_usuarioA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 432, 40));
+
+        bt_registrarO.setBackground(new java.awt.Color(25, 187, 81));
+        bt_registrarO.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        bt_registrarO.setForeground(new java.awt.Color(255, 255, 255));
+        bt_registrarO.setText("REGISTRARSE");
+        bt_registrarO.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_registrarOMouseClicked(evt);
+            }
+        });
+        pn_registrarO.add(bt_registrarO, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 270, 150, 40));
+
+        tf_contraA1.setBackground(new java.awt.Color(51, 51, 51));
+        tf_contraA1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tf_contraA1.setForeground(new java.awt.Color(153, 153, 153));
+        tf_contraA1.setText("Contraseña");
+        tf_contraA1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tf_contraA1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tf_contraA1MouseExited(evt);
+            }
+        });
+        pn_registrarO.add(tf_contraA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 432, 40));
+
+        tf_edadA1.setBackground(new java.awt.Color(51, 51, 51));
+        tf_edadA1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tf_edadA1.setForeground(new java.awt.Color(153, 153, 153));
+        tf_edadA1.setText("Edad");
+        tf_edadA1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tf_edadA1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tf_edadA1MouseExited(evt);
+            }
+        });
+        pn_registrarO.add(tf_edadA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, 432, 40));
+
+        Iniciar_Registrar.add(pn_registrarO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, -1, 460));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,31 +290,133 @@ public class FrameP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tf_usuarioMouseExited
 
+    private void tf_nombreAMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_nombreAMouseEntered
+        if ("Nombre Artístico".equals(tf_nombreA.getText())) {
+            tf_nombreA.setText("");
+        }
+    }//GEN-LAST:event_tf_nombreAMouseEntered
+
+    private void tf_nombreAMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_nombreAMouseExited
+        if (tf_nombreA.getText().isEmpty()) {
+            tf_nombreA.setText("Nombre Artístico");
+        }
+    }//GEN-LAST:event_tf_nombreAMouseExited
+
+    private void tf_usuarioAMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_usuarioAMouseEntered
+        if ("Nombre de usuario".equals(tf_usuarioA.getText())) {
+            tf_usuarioA.setText("");
+        }
+    }//GEN-LAST:event_tf_usuarioAMouseEntered
+
+    private void tf_usuarioAMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_usuarioAMouseExited
+        if (tf_usuarioA.getText().isEmpty()) {
+            tf_usuarioA.setText("Nombre de usuario");
+        }
+    }//GEN-LAST:event_tf_usuarioAMouseExited
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        pn_iniciarsesión.setVisible(false);
+        int op = Integer.parseInt(JOptionPane.showInputDialog("1-> Artista\n2-> Oyente\nIngrese opción:"));
+        if (op == 1) {
+            pn_registrarA.setVisible(true);
+        } else if (op == 2) {
+
+        }
+    }//GEN-LAST:event_jLabel2MouseClicked
+
     private void bt_iniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_iniciarMouseClicked
         if (ValidarUsuario(tf_usuario.getText(), tf_contra.getText())) {
             switch (tipo) {
                 case 1://registro
                     Iniciar_Registrar.setVisible(false);
-//                    Registro.setVisible(true);
-//                    Portal.setVisible(false);
-//                    Canvas.setVisible(false);
+                    //                    Registro.setVisible(true);
+                    //                    Portal.setVisible(false);
+                    //                    Canvas.setVisible(false);
                     break;
                 case 2://maestro
                     Iniciar_Registrar.setVisible(false);
-//                    Registro.setVisible(false);
-//                    Portal.setVisible(true);
-//                    Canvas.setVisible(false);
+                    //                    Registro.setVisible(false);
+                    //                    Portal.setVisible(true);
+                    //                    Canvas.setVisible(false);
                     break;
             }
         }
     }//GEN-LAST:event_bt_iniciarMouseClicked
+
+    private void tf_contraAMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_contraAMouseEntered
+        if ("Contraseña".equals(tf_contraA.getText())) {
+            tf_contraA.setText("");
+        }
+    }//GEN-LAST:event_tf_contraAMouseEntered
+
+    private void tf_contraAMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_contraAMouseExited
+        if (tf_contraA.getText().isEmpty()) {
+            tf_contraA.setText("Contraseña");
+        }
+    }//GEN-LAST:event_tf_contraAMouseExited
+
+    private void tf_edadAMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_edadAMouseEntered
+        if ("Edad".equals(tf_edadA.getText())) {
+            tf_edadA.setText("");
+        }
+    }//GEN-LAST:event_tf_edadAMouseEntered
+
+    private void tf_edadAMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_edadAMouseExited
+        if (tf_edadA.getText().isEmpty()) {
+            tf_edadA.setText("Edad");
+        }
+    }//GEN-LAST:event_tf_edadAMouseExited
+
+    private void bt_registrarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_registrarAMouseClicked
+        Artista a = new Artista(tf_nombreA.toString(), tf_usuarioA.toString(), tf_contraA.toString(), Integer.parseInt(tf_edadA.toString()));
+        au.getUsuarios().add(a);
+        try {
+            au.escribirArchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(FrameP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bt_registrarAMouseClicked
+
+    private void tf_usuarioA1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_usuarioA1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_usuarioA1MouseEntered
+
+    private void tf_usuarioA1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_usuarioA1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_usuarioA1MouseExited
+
+    private void bt_registrarOMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_registrarOMouseClicked
+        Oyente o = new Oyente(tf_usuarioA.toString(), tf_contraA.toString(), Integer.parseInt(tf_edadA.toString()));
+        au.getUsuarios().add(o);
+        try {
+            au.escribirArchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(FrameP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bt_registrarOMouseClicked
+
+    private void tf_contraA1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_contraA1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_contraA1MouseEntered
+
+    private void tf_contraA1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_contraA1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_contraA1MouseExited
+
+    private void tf_edadA1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_edadA1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_edadA1MouseEntered
+
+    private void tf_edadA1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_edadA1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_edadA1MouseExited
 
     private boolean ValidarUsuario(String admin, String contra) {
         for (Usuario u : usuarios) {
             if (u.getUser().equals(admin) && u.getContra().equals(contra)) {
                 if (u instanceof Artista) {
                     tipo = 1;
-                } else if (u instanceof Cliente) {
+                } else if (u instanceof Oyente) {
                     tipo = 2;
                 }
                 return true;
@@ -195,7 +452,11 @@ public class FrameP extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameP().setVisible(true);
+                try {
+                    new FrameP().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(FrameP.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -203,10 +464,23 @@ public class FrameP extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Iniciar_Registrar;
     private javax.swing.JButton bt_iniciar;
-    private javax.swing.JButton bt_registrar;
+    private javax.swing.JButton bt_registrarA;
+    private javax.swing.JButton bt_registrarO;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel pn_iniciarsesión;
+    private javax.swing.JPanel pn_registrarA;
+    private javax.swing.JPanel pn_registrarO;
     private javax.swing.JTextField tf_contra;
+    private javax.swing.JTextField tf_contraA;
+    private javax.swing.JTextField tf_contraA1;
+    private javax.swing.JTextField tf_edadA;
+    private javax.swing.JTextField tf_edadA1;
+    private javax.swing.JTextField tf_nombreA;
     private javax.swing.JTextField tf_usuario;
+    private javax.swing.JTextField tf_usuarioA;
+    private javax.swing.JTextField tf_usuarioA1;
     // End of variables declaration//GEN-END:variables
 }
