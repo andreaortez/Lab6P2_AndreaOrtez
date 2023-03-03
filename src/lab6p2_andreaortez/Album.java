@@ -10,8 +10,8 @@ public class Album extends Lanzamiento{
     public Album() {
     }
 
-    public Album(int cant, String titulo, String fecha, int likes, String album) {
-        super(titulo, fecha, likes, album);
+    public Album(int cant, String titulo, String fecha, int likes) {
+        super(titulo, fecha, likes);
         this.cant = cant;
     }
 

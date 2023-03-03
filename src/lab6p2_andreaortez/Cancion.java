@@ -8,7 +8,7 @@ public class Cancion {
     public Cancion() {
     }
 
-    public Cancion(String titulo, String referencia, int tiempo) {
+    public Cancion(String titulo, int tiempo, String referencia) {
         this.titulo = titulo;
         this.referencia = referencia;
         this.tiempo = tiempo;

@@ -2,17 +2,17 @@
 package lab6p2_andreaortez;
 
 public class Lanzamiento {
-    protected String titulo, fecha, album;
+    protected String titulo, fecha;
     protected int likes;
 
     public Lanzamiento() {
     }
 
-    public Lanzamiento(String titulo, String fecha, int likes, String album) {
+    public Lanzamiento(String titulo, String fecha, int likes) {
         this.titulo = titulo;
         this.fecha = fecha;
         this.likes = likes;
-        this.album = album;
+//        this.album = album;
     }
 
     public String getTitulo() {
@@ -31,13 +31,13 @@ public class Lanzamiento {
         this.fecha = fecha;
     }
 
-    public String getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(String album) {
-        this.album = album;
-    }
+//    public String getAlbum() {
+//        return album;
+//    }
+//
+//    public void setAlbum(String album) {
+//        this.album = album;
+//    }
 
     public int getLikes() {
         return likes;

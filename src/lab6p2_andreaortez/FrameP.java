@@ -11,15 +11,19 @@ public class FrameP extends javax.swing.JFrame {
     ArrayList<Usuario> usuarios = new ArrayList();
     int tipo;
     AdministrarU au = new AdministrarU("./usuarios.txt");
+    Bitacora b = new Bitacora("./bitacora");
     
     public FrameP() throws IOException {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         au.cargarArchivo();
+        
         pn_registrarA.setVisible(false);
         pn_registrarO.setVisible(false);
         S_Artista.setVisible(false);
+        
         usuarios = au.getUsuarios();
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -28,7 +32,10 @@ public class FrameP extends javax.swing.JFrame {
 
         S_Artista = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        crearL = new javax.swing.JLabel();
+        eliminarL = new javax.swing.JLabel();
+        EditarL = new javax.swing.JLabel();
+        pn_crearL = new javax.swing.JPanel();
         Iniciar_Registrar = new javax.swing.JPanel();
         pn_iniciarsesión = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -57,25 +64,43 @@ public class FrameP extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel5.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Crear Lanzamiento");
+        crearL.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        crearL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        crearL.setText("Crear Lanzamiento");
+
+        eliminarL.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        eliminarL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eliminarL.setText("Eliminar Lanzamiento");
+
+        EditarL.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        EditarL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        EditarL.setText("Editar Lanzamiento");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addComponent(crearL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(eliminarL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+            .addComponent(EditarL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(175, 175, 175)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(423, Short.MAX_VALUE))
+                .addComponent(crearL, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(eliminarL, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(EditarL, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(343, Short.MAX_VALUE))
         );
 
-        S_Artista.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 630));
+        S_Artista.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 720));
+
+        pn_crearL.setBackground(new java.awt.Color(32, 32, 32));
+        pn_crearL.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        S_Artista.add(pn_crearL, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 1140, 720));
 
         Iniciar_Registrar.setBackground(new java.awt.Color(32, 32, 32));
         Iniciar_Registrar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -382,6 +407,8 @@ public class FrameP extends javax.swing.JFrame {
                     //                    Canvas.setVisible(false);
                     break;
             }
+        }else {
+            JOptionPane.showMessageDialog(this, "No existe este usuario");
         }
     }//GEN-LAST:event_bt_iniciarMouseClicked
 
@@ -410,15 +437,17 @@ public class FrameP extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_edadAMouseExited
 
     private void bt_registrarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_registrarAMouseClicked
-        Artista a = new Artista(tf_nombreA.toString(), tf_usuarioA.toString(), tf_contraA.toString(), Integer.parseInt(tf_edadA.toString()));
+        Artista a = new Artista(tf_nombreA.getText(), tf_usuarioA.getText(), tf_contraA.getText(), Integer.parseInt(tf_edadA.getText()));
         au.getUsuarios().add(a);
         try {
             au.escribirArchivo();
+            b.escribirArchivo();
         } catch (IOException ex) {
             Logger.getLogger(FrameP.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         S_Artista.setVisible(true);
+        pn_registrarA.setVisible(false);
     }//GEN-LAST:event_bt_registrarAMouseClicked
 
     private void tf_usuarioOMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_usuarioOMouseEntered
@@ -438,6 +467,7 @@ public class FrameP extends javax.swing.JFrame {
         au.getUsuarios().add(o);
         try {
             au.escribirArchivo();
+            b.escribirArchivo();
         } catch (IOException ex) {
             Logger.getLogger(FrameP.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -518,17 +548,20 @@ public class FrameP extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel EditarL;
     private javax.swing.JPanel Iniciar_Registrar;
     private javax.swing.JPanel S_Artista;
     private javax.swing.JButton bt_iniciar;
     private javax.swing.JButton bt_registrarA;
     private javax.swing.JButton bt_registrarO;
+    private javax.swing.JLabel crearL;
+    private javax.swing.JLabel eliminarL;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel pn_crearL;
     private javax.swing.JPanel pn_iniciarsesión;
     private javax.swing.JPanel pn_registrarA;
     private javax.swing.JPanel pn_registrarO;
