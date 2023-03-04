@@ -36,12 +36,12 @@ public class Bitacora {
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
-            fw = new FileWriter(archivo, false);
+            fw = new FileWriter(archivo, true);
             bw = new BufferedWriter(fw);
             for (Usuario u : usuarios) {
                 if (u instanceof Artista) {
                     bw.write(u.getUser() + "-> ");
-                    bw.write("Artista" + "->");
+                    bw.write("Artista" + "-> ");
                     bw.write(new Date() + "\n");
                 }
                 if (u instanceof Oyente) {

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdministrarU {
+
     private ArrayList<Usuario> usuarios = new ArrayList();
     private File archivo = null;//ROM
 
@@ -35,7 +36,7 @@ public class AdministrarU {
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
-            fw = new FileWriter(archivo, false);
+            fw = new FileWriter(archivo, true);
             bw = new BufferedWriter(fw);
             for (Usuario u : usuarios) {
                 if (u instanceof Artista) {
@@ -62,7 +63,6 @@ public class AdministrarU {
     public void cargarArchivo() throws IOException {
         Scanner sc = null;
         usuarios = new ArrayList();
-        int cont = 0;
 
         if (archivo.exists()) {
             try {
@@ -70,11 +70,11 @@ public class AdministrarU {
                 while (sc.hasNext()) {
                     String cad = sc.nextLine();
                     String[] token = cad.split("\\|");
-                    for (Usuario u : usuarios) {
-                        if (u instanceof Artista) {
+                    for (int i = 0; i < token.length - 1; i++) {
+                        if (token[0].equals("Artista")) {
                             usuarios.add(new Artista(token[4], token[1], token[2], Integer.parseInt(token[3])));
                         }
-                        if (u instanceof Oyente) {
+                        if (token[0].equals("Oyente")) {
                             usuarios.add(new Oyente(token[1], token[2], Integer.parseInt(token[3])));
                         }
 //                        String[] song = token[4].split(",");
@@ -86,12 +86,12 @@ public class AdministrarU {
 //                            usuarios.get(cont).getAccesorios().add(album[i]);
 //                        }
                     }
-                    cont++;
                 }
             } catch (Exception e) {
             }
             sc.close();
 
         }//FIN IF
+
     }
 }

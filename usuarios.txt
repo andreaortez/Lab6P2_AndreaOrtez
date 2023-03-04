@@ -1,1 +1,6 @@
+Artista|brunom|flores|40|Bruno Mars
 Artista|taytay|joe|33|Taylor Swift
+Oyente|andrea|123|19
+Oyente|amy|456|20
+Oyente|vanessa|vane|34
+Artista|mileyc|hannah|34|Miley Cyrus

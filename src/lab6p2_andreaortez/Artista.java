@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 public class Artista extends Usuario{
     private String nombre;
-    ArrayList <Cancion> canciones = new ArrayList();
-    ArrayList <Album> albumes = new ArrayList();
+    ArrayList <Lanzamiento> lanzamientos = new ArrayList();
 
     public Artista() {
     }
@@ -24,25 +23,17 @@ public class Artista extends Usuario{
         this.nombre = nombre;
     }
 
-    public ArrayList getCanciones() {
-        return canciones;
+    public ArrayList<Lanzamiento> getLanzamientos() {
+        return lanzamientos;
     }
 
-    public void setCanciones(ArrayList canciones) {
-        this.canciones = canciones;
-    }
-
-    public ArrayList getAlbumes() {
-        return albumes;
-    }
-
-    public void setAlbumes(ArrayList albumes) {
-        this.albumes = albumes;
+    public void setLanzamientos(ArrayList<Lanzamiento> lanzamientos) {
+        this.lanzamientos = lanzamientos;
     }
 
     @Override
     public String toString() {
-        return "Artista{" + "nombre=" + nombre + ", canciones=" + canciones + ", albumes=" + albumes + '}';
+        return "Artista{" + "nombre=" + nombre + ", lanzamientos=" + lanzamientos + '}';
     }
     
 }

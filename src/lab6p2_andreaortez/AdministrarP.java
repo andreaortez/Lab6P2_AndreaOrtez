@@ -36,7 +36,7 @@ public class AdministrarP {
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
-            fw = new FileWriter(archivo, false);
+            fw = new FileWriter(archivo, true);
             bw = new BufferedWriter(fw);
             for (Lista l : playlists) {
                     bw.write(l.getNombre()+ "|");

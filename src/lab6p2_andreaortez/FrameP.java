@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 public class FrameP extends javax.swing.JFrame {
     
-    ArrayList<Usuario> usuarios = new ArrayList();
     int tipo;
     AdministrarU au = new AdministrarU("./usuarios.txt");
-    Bitacora b = new Bitacora("./bitacora");
+    Bitacora b = new Bitacora("./bitacora.txt");
+    DefaultMutableTreeNode nodo_seleccionado;
     
     public FrameP() throws IOException {
         initComponents();
@@ -22,8 +24,9 @@ public class FrameP extends javax.swing.JFrame {
         pn_registrarO.setVisible(false);
         S_Artista.setVisible(false);
         
-        usuarios = au.getUsuarios();
-        b.setUsuarios(usuarios);
+        b.setUsuarios(au.getUsuarios());
+        
+        System.out.println(au.getUsuarios().size());
     }
     
     @SuppressWarnings("unchecked")
@@ -31,11 +34,19 @@ public class FrameP extends javax.swing.JFrame {
     private void initComponents() {
 
         S_Artista = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        pn_crearL = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        tf_fecha = new javax.swing.JTextField();
+        tf_titulo = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        barra = new javax.swing.JPanel();
         crearL = new javax.swing.JLabel();
         eliminarL = new javax.swing.JLabel();
         EditarL = new javax.swing.JLabel();
-        pn_crearL = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jt_artista = new javax.swing.JTree();
         Iniciar_Registrar = new javax.swing.JPanel();
         pn_iniciarsesión = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -62,7 +73,37 @@ public class FrameP extends javax.swing.JFrame {
         S_Artista.setBackground(new java.awt.Color(32, 32, 32));
         S_Artista.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        pn_crearL.setBackground(new java.awt.Color(32, 32, 32));
+        pn_crearL.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Título de publicación");
+        pn_crearL.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Fecha de Lanzamiento");
+        pn_crearL.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 190, 30));
+
+        tf_fecha.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        pn_crearL.add(tf_fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, 290, -1));
+
+        tf_titulo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        pn_crearL.add(tf_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 290, -1));
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Categoría");
+        pn_crearL.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
+
+        jComboBox1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Álbum", "Single" }));
+        pn_crearL.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 290, -1));
+
+        S_Artista.add(pn_crearL, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 630, 720));
+
+        barra.setBackground(new java.awt.Color(0, 0, 0));
 
         crearL.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         crearL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -76,17 +117,17 @@ public class FrameP extends javax.swing.JFrame {
         EditarL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         EditarL.setText("Editar Lanzamiento");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout barraLayout = new javax.swing.GroupLayout(barra);
+        barra.setLayout(barraLayout);
+        barraLayout.setHorizontalGroup(
+            barraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(crearL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(eliminarL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
             .addComponent(EditarL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        barraLayout.setVerticalGroup(
+            barraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(barraLayout.createSequentialGroup()
                 .addGap(175, 175, 175)
                 .addComponent(crearL, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
@@ -96,11 +137,20 @@ public class FrameP extends javax.swing.JFrame {
                 .addContainerGap(343, Short.MAX_VALUE))
         );
 
-        S_Artista.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 720));
+        S_Artista.add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 720));
 
-        pn_crearL.setBackground(new java.awt.Color(32, 32, 32));
-        pn_crearL.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        S_Artista.add(pn_crearL, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 1140, 720));
+        jScrollPane1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        jt_artista.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Lanzamientos");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Albumes");
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Singles");
+        treeNode1.add(treeNode2);
+        jt_artista.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane1.setViewportView(jt_artista);
+
+        S_Artista.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 400, 640));
 
         Iniciar_Registrar.setBackground(new java.awt.Color(32, 32, 32));
         Iniciar_Registrar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -407,7 +457,23 @@ public class FrameP extends javax.swing.JFrame {
                     //                    Canvas.setVisible(false);
                     break;
             }
-        }else {
+            
+            DefaultTreeModel m = (DefaultTreeModel) jt_artista.getModel();
+            DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
+
+            nodo_seleccionado = new DefaultMutableTreeNode(new Personaje(tf_nombre.getText(), tf_debilidad.getText(),
+                    cb_universo.getSelectedItem().toString(), tf_poder.getText(), Double.parseDouble(tf_fuerza.getText()),
+                    Double.parseDouble(tf_afisica.getText()), Double.parseDouble(tf_amental.getText()),
+                    Double.parseDouble(tf_vida.getText())));
+
+            for (int i = 0; i < raiz.getChildCount(); i++) {
+                if (cb_universo.getSelectedItem().toString().equals(raiz.getChildAt(i).toString())) {
+                    ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(nodo_personaje);
+                }
+            }
+
+            m.reload();
+        } else {
             JOptionPane.showMessageDialog(this, "No existe este usuario");
         }
     }//GEN-LAST:event_bt_iniciarMouseClicked
@@ -463,7 +529,7 @@ public class FrameP extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_usuarioOMouseExited
 
     private void bt_registrarOMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_registrarOMouseClicked
-        Oyente o = new Oyente(tf_usuarioA.toString(), tf_contraA.toString(), Integer.parseInt(tf_edadA.toString()));
+        Oyente o = new Oyente(tf_usuarioO.getText(), tf_contraO.getText(), Integer.parseInt(tf_edadO.getText()));
         au.getUsuarios().add(o);
         try {
             au.escribirArchivo();
@@ -498,7 +564,7 @@ public class FrameP extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_edadOMouseExited
     
     private boolean ValidarUsuario(String admin, String contra) {
-        for (Usuario u : usuarios) {
+        for (Usuario u : au.getUsuarios()) {
             if (u.getUser().equals(admin) && u.getContra().equals(contra)) {
                 if (u instanceof Artista) {
                     tipo = 1;
@@ -509,6 +575,10 @@ public class FrameP extends javax.swing.JFrame {
             }
         }
         return false;
+    }
+    
+    private void LlenarTree(){
+        
     }
     
     public static void main(String args[]) {
@@ -551,16 +621,22 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JLabel EditarL;
     private javax.swing.JPanel Iniciar_Registrar;
     private javax.swing.JPanel S_Artista;
+    private javax.swing.JPanel barra;
     private javax.swing.JButton bt_iniciar;
     private javax.swing.JButton bt_registrarA;
     private javax.swing.JButton bt_registrarO;
     private javax.swing.JLabel crearL;
     private javax.swing.JLabel eliminarL;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTree jt_artista;
     private javax.swing.JPanel pn_crearL;
     private javax.swing.JPanel pn_iniciarsesión;
     private javax.swing.JPanel pn_registrarA;
@@ -570,7 +646,9 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JTextField tf_contraO;
     private javax.swing.JTextField tf_edadA;
     private javax.swing.JTextField tf_edadO;
+    private javax.swing.JTextField tf_fecha;
     private javax.swing.JTextField tf_nombreA;
+    private javax.swing.JTextField tf_titulo;
     private javax.swing.JTextField tf_usuario;
     private javax.swing.JTextField tf_usuarioA;
     private javax.swing.JTextField tf_usuarioO;
