@@ -4,35 +4,65 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
 
 public class FrameP extends javax.swing.JFrame {
-    
+
     int tipo;
     AdministrarU au = new AdministrarU("./usuarios.txt");
+    AdministrarC ac = new AdministrarC("./canciones.txt");
+    AdministrarL al = new AdministrarL("./lanzamientos.txt");
+    AdministrarP ap = new AdministrarP("./playlists.txt");
     Bitacora b = new Bitacora("./bitacora.txt");
     DefaultMutableTreeNode nodo_seleccionado;
-    
+    String actual;
+
     public FrameP() throws IOException {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         au.cargarArchivo();
-        
+        ac.cargarArchivo();
+        al.cargarArchivo();
+        ap.cargarArchivo();
+
         pn_registrarA.setVisible(false);
         pn_registrarO.setVisible(false);
         S_Artista.setVisible(false);
-        
+
         b.setUsuarios(au.getUsuarios());
-        
+
         System.out.println(au.getUsuarios().size());
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        AgregarC = new javax.swing.JDialog();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        cb_albumes = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        S_Oyente = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        crearC1 = new javax.swing.JLabel();
+        crearL1 = new javax.swing.JLabel();
+        eliminarL1 = new javax.swing.JLabel();
+        EditarL1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         S_Artista = new javax.swing.JPanel();
         pn_crearL = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -40,13 +70,19 @@ public class FrameP extends javax.swing.JFrame {
         tf_fecha = new javax.swing.JTextField();
         tf_titulo = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        barra = new javax.swing.JPanel();
-        crearL = new javax.swing.JLabel();
-        eliminarL = new javax.swing.JLabel();
-        EditarL = new javax.swing.JLabel();
+        cb_cat = new javax.swing.JComboBox<>();
+        pn_album = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        cb_canciones = new javax.swing.JComboBox<>();
+        bt_agregarA = new javax.swing.JButton();
+        bt_agregarS = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_artista = new javax.swing.JTree();
+        barra = new javax.swing.JPanel();
+        crearC = new javax.swing.JLabel();
+        eliminarL = new javax.swing.JLabel();
+        EditarL = new javax.swing.JLabel();
+        crearL = new javax.swing.JLabel();
         Iniciar_Registrar = new javax.swing.JPanel();
         pn_iniciarsesión = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -68,7 +104,133 @@ public class FrameP extends javax.swing.JFrame {
         tf_contraO = new javax.swing.JTextField();
         tf_edadO = new javax.swing.JTextField();
 
+        jPanel1.setBackground(new java.awt.Color(32, 32, 32));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Agregar Canción");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Título");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 104, -1, -1));
+
+        jTextField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 370, -1));
+
+        jTextField2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 370, -1));
+
+        jLabel11.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Album");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, 30));
+
+        jLabel12.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Duración");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 203, -1, -1));
+
+        cb_albumes.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel1.add(cb_albumes, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 370, -1));
+
+        jButton1.setBackground(new java.awt.Color(25, 187, 81));
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jButton1.setText("Agregar");
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 394, -1, 40));
+
+        javax.swing.GroupLayout AgregarCLayout = new javax.swing.GroupLayout(AgregarC.getContentPane());
+        AgregarC.getContentPane().setLayout(AgregarCLayout);
+        AgregarCLayout.setHorizontalGroup(
+            AgregarCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+        );
+        AgregarCLayout.setVerticalGroup(
+            AgregarCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        S_Oyente.setBackground(new java.awt.Color(32, 32, 32));
+        S_Oyente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+
+        crearC1.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        crearC1.setForeground(new java.awt.Color(255, 255, 255));
+        crearC1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        crearC1.setText("Ver otras listas");
+        crearC1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                crearC1MouseClicked(evt);
+            }
+        });
+
+        crearL1.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        crearL1.setForeground(new java.awt.Color(255, 255, 255));
+        crearL1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        crearL1.setText("Crear Lista");
+        crearL1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                crearL1MouseClicked(evt);
+            }
+        });
+
+        eliminarL1.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        eliminarL1.setForeground(new java.awt.Color(255, 255, 255));
+        eliminarL1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eliminarL1.setText("Eliminar Lista");
+        eliminarL1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eliminarL1MouseClicked(evt);
+            }
+        });
+
+        EditarL1.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        EditarL1.setForeground(new java.awt.Color(255, 255, 255));
+        EditarL1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        EditarL1.setText("Editar Lista");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(crearL1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(EditarL1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(eliminarL1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(crearC1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(259, Short.MAX_VALUE)
+                .addComponent(crearL1)
+                .addGap(47, 47, 47)
+                .addComponent(EditarL1)
+                .addGap(51, 51, 51)
+                .addComponent(eliminarL1)
+                .addGap(49, 49, 49)
+                .addComponent(crearC1)
+                .addGap(218, 218, 218))
+        );
+
+        S_Oyente.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 720));
+
+        jScrollPane2.setViewportView(jTree1);
+
+        S_Oyente.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 350, 630));
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(jList1);
+
+        S_Oyente.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 60, 370, 620));
 
         S_Artista.setBackground(new java.awt.Color(32, 32, 32));
         S_Artista.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -86,10 +248,14 @@ public class FrameP extends javax.swing.JFrame {
         jLabel6.setText("Fecha de Lanzamiento");
         pn_crearL.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 190, 30));
 
+        tf_fecha.setBackground(new java.awt.Color(51, 51, 51));
         tf_fecha.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        tf_fecha.setForeground(new java.awt.Color(153, 153, 153));
         pn_crearL.add(tf_fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, 290, -1));
 
+        tf_titulo.setBackground(new java.awt.Color(51, 51, 51));
         tf_titulo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        tf_titulo.setForeground(new java.awt.Color(153, 153, 153));
         pn_crearL.add(tf_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 290, -1));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -97,51 +263,88 @@ public class FrameP extends javax.swing.JFrame {
         jLabel7.setText("Categoría");
         pn_crearL.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
 
-        jComboBox1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Álbum", "Single" }));
-        pn_crearL.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 290, -1));
+        cb_cat.setBackground(new java.awt.Color(51, 51, 51));
+        cb_cat.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        cb_cat.setForeground(new java.awt.Color(255, 255, 255));
+        cb_cat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Álbum", "Single" }));
+        cb_cat.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_catItemStateChanged(evt);
+            }
+        });
+        pn_crearL.add(cb_cat, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 290, -1));
 
-        S_Artista.add(pn_crearL, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 630, 720));
+        pn_album.setBackground(new java.awt.Color(32, 32, 32));
 
-        barra.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel8.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Canciones");
 
-        crearL.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        crearL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        crearL.setText("Crear Lanzamiento");
+        cb_canciones.setBackground(new java.awt.Color(51, 51, 51));
+        cb_canciones.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        cb_canciones.setForeground(new java.awt.Color(153, 153, 153));
 
-        eliminarL.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        eliminarL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eliminarL.setText("Eliminar Lanzamiento");
+        bt_agregarA.setBackground(new java.awt.Color(25, 187, 81));
+        bt_agregarA.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        bt_agregarA.setForeground(new java.awt.Color(255, 255, 255));
+        bt_agregarA.setText("Agregar Álbum");
+        bt_agregarA.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_agregarAMouseClicked(evt);
+            }
+        });
 
-        EditarL.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        EditarL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        EditarL.setText("Editar Lanzamiento");
+        bt_agregarS.setBackground(new java.awt.Color(25, 187, 81));
+        bt_agregarS.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        bt_agregarS.setText("Agregar Canción");
+        bt_agregarS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_agregarSMouseClicked(evt);
+            }
+        });
 
-        javax.swing.GroupLayout barraLayout = new javax.swing.GroupLayout(barra);
-        barra.setLayout(barraLayout);
-        barraLayout.setHorizontalGroup(
-            barraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(crearL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(eliminarL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-            .addComponent(EditarL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+        javax.swing.GroupLayout pn_albumLayout = new javax.swing.GroupLayout(pn_album);
+        pn_album.setLayout(pn_albumLayout);
+        pn_albumLayout.setHorizontalGroup(
+            pn_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pn_albumLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(pn_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pn_albumLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(bt_agregarS)
+                        .addGap(45, 45, 45)
+                        .addComponent(bt_agregarA)
+                        .addGap(81, 81, 81))
+                    .addGroup(pn_albumLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(97, 97, 97)
+                        .addComponent(cb_canciones, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(34, Short.MAX_VALUE))))
         );
-        barraLayout.setVerticalGroup(
-            barraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(barraLayout.createSequentialGroup()
-                .addGap(175, 175, 175)
-                .addComponent(crearL, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
-                .addComponent(eliminarL, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
-                .addComponent(EditarL, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(343, Short.MAX_VALUE))
+        pn_albumLayout.setVerticalGroup(
+            pn_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pn_albumLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(pn_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(cb_canciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addGroup(pn_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_agregarA)
+                    .addComponent(bt_agregarS))
+                .addGap(56, 56, 56))
         );
 
-        S_Artista.add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 720));
+        pn_crearL.add(pn_album, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 540, 260));
+
+        S_Artista.add(pn_crearL, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, 630, 720));
 
         jScrollPane1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
+        jt_artista.setBackground(new java.awt.Color(51, 51, 51));
         jt_artista.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jt_artista.setForeground(new java.awt.Color(255, 255, 255));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Lanzamientos");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Albumes");
         treeNode1.add(treeNode2);
@@ -151,6 +354,50 @@ public class FrameP extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jt_artista);
 
         S_Artista.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 400, 640));
+
+        barra.setBackground(new java.awt.Color(0, 0, 0));
+        barra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        crearC.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        crearC.setForeground(new java.awt.Color(255, 255, 255));
+        crearC.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        crearC.setText("Agregar Canción");
+        crearC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                crearCMouseClicked(evt);
+            }
+        });
+        barra.add(crearC, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 175, 250, 32));
+
+        eliminarL.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        eliminarL.setForeground(new java.awt.Color(255, 255, 255));
+        eliminarL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eliminarL.setText("Eliminar Lanzamiento");
+        eliminarL.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eliminarLMouseClicked(evt);
+            }
+        });
+        barra.add(eliminarL, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 345, 250, 32));
+
+        EditarL.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        EditarL.setForeground(new java.awt.Color(255, 255, 255));
+        EditarL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        EditarL.setText("Editar Lanzamiento");
+        barra.add(EditarL, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 250, 32));
+
+        crearL.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        crearL.setForeground(new java.awt.Color(255, 255, 255));
+        crearL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        crearL.setText("Crear Lanzamiento");
+        crearL.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                crearLMouseClicked(evt);
+            }
+        });
+        barra.add(crearL, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 250, 32));
+
+        S_Artista.add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 730));
 
         Iniciar_Registrar.setBackground(new java.awt.Color(32, 32, 32));
         Iniciar_Registrar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -368,14 +615,24 @@ public class FrameP extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(S_Artista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(S_Oyente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Iniciar_Registrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Iniciar_Registrar, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(S_Artista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(S_Oyente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -446,32 +703,28 @@ public class FrameP extends javax.swing.JFrame {
                 case 1://artista
                     Iniciar_Registrar.setVisible(false);
                     S_Artista.setVisible(true);
-                    //                    Portal.setVisible(false);
-                    //                    Canvas.setVisible(false);
+                    pn_crearL.setVisible(false);
+                    pn_album.setVisible(false);
+                    barra.setVisible(true);
                     break;
                 case 2://oyente
                     Iniciar_Registrar.setVisible(false);
                     S_Artista.setVisible(false);
-                    //                    Registro.setVisible(false);
-                    //                    Portal.setVisible(true);
-                    //                    Canvas.setVisible(false);
+                    S_Oyente.setVisible(true);
                     break;
             }
-            
+
             DefaultTreeModel m = (DefaultTreeModel) jt_artista.getModel();
             DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
 
-            nodo_seleccionado = new DefaultMutableTreeNode(new Personaje(tf_nombre.getText(), tf_debilidad.getText(),
-                    cb_universo.getSelectedItem().toString(), tf_poder.getText(), Double.parseDouble(tf_fuerza.getText()),
-                    Double.parseDouble(tf_afisica.getText()), Double.parseDouble(tf_amental.getText()),
-                    Double.parseDouble(tf_vida.getText())));
+//            nodo_seleccionado = new DefaultMutableTreeNode(new Personaje(tf_nombre.getText(), tf_debilidad.getText(),
+//                    cb_universo.getSelectedItem().toString(), tf_poder.getText(), Double.parseDouble(tf_fuerza.getText()),
+//                    Double.parseDouble(tf_afisica.getText()), Double.parseDouble(tf_amental.getText()),
+//                    Double.parseDouble(tf_vida.getText())));
+//
+            for (Object object : ((Artista) actual)) {
 
-            for (int i = 0; i < raiz.getChildCount(); i++) {
-                if (cb_universo.getSelectedItem().toString().equals(raiz.getChildAt(i).toString())) {
-                    ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(nodo_personaje);
-                }
             }
-
             m.reload();
         } else {
             JOptionPane.showMessageDialog(this, "No existe este usuario");
@@ -511,7 +764,7 @@ public class FrameP extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(FrameP.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         S_Artista.setVisible(true);
         pn_registrarA.setVisible(false);
     }//GEN-LAST:event_bt_registrarAMouseClicked
@@ -562,10 +815,95 @@ public class FrameP extends javax.swing.JFrame {
             tf_edadO.setText("Edad");
         }
     }//GEN-LAST:event_tf_edadOMouseExited
-    
+
+    private void bt_agregarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_agregarAMouseClicked
+        int p = al.getLanzamientos().size();
+        int cant = ((Album) al.getLanzamientos().get(p)).getCanciones().size();
+        Album a = new Album(cant, tf_titulo.getText(), tf_fecha.getText(), 0);
+        al.getLanzamientos().add(a);
+        try {
+            al.escribirArchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(FrameP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bt_agregarAMouseClicked
+
+    private void crearCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearCMouseClicked
+        AgregarC.setVisible(true);
+        AgregarC.pack();
+        AgregarC.setLocationRelativeTo(this);
+        AgregarC.setVisible(true);
+
+        cb_albumes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{}));
+        for (Lanzamiento c : al.getLanzamientos()) {
+            if (c instanceof Album) {
+                DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_albumes.getModel();
+                modelo.addElement(c);
+                cb_albumes.setModel(modelo);
+            }
+        }
+    }//GEN-LAST:event_crearCMouseClicked
+
+    private void eliminarLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarLMouseClicked
+        if (jt_artista.getSelectionCount() >= 0) {
+            int response = JOptionPane.showConfirmDialog(this, "Seguro de Eliminar?", "Confirm",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (response == JOptionPane.OK_OPTION) {
+                DefaultTreeModel modelo = (DefaultTreeModel) jt_artista.getModel();
+                modelo.removeNodeFromParent(nodo_seleccionado);
+                jt_artista.setModel((TreeModel) modelo);
+                JOptionPane.showMessageDialog(this, "Eliminado exitosamente");
+            }
+        }
+    }//GEN-LAST:event_eliminarLMouseClicked
+
+    private void cb_catItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_catItemStateChanged
+        if (cb_cat.getSelectedItem() == "Álbum") {
+            pn_album.setVisible(true);
+            cb_canciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{}));
+            for (Cancion c : ac.getCanciones()) {
+                DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_canciones.getModel();
+                modelo.addElement(c);
+                cb_canciones.setModel(modelo);
+            }
+        } else {
+
+        }
+    }//GEN-LAST:event_cb_catItemStateChanged
+
+    private void crearLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearLMouseClicked
+        pn_crearL.setVisible(true);
+        pn_album.setVisible(false);
+    }//GEN-LAST:event_crearLMouseClicked
+
+    private void crearC1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearC1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_crearC1MouseClicked
+
+    private void crearL1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearL1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_crearL1MouseClicked
+
+    private void eliminarL1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarL1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminarL1MouseClicked
+
+    private void bt_agregarSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_agregarSMouseClicked
+        int p = al.getLanzamientos().size() - 1;
+        Cancion c = new Cancion();
+        for (Cancion s : ac.getCanciones()) {
+            if (s.getTitulo().equals(cb_canciones.getSelectedItem().toString())) {
+                c = s;
+            }
+        }
+        ((Album) al.getLanzamientos().get(p)).getCanciones().add(c);
+    }//GEN-LAST:event_bt_agregarSMouseClicked
+
     private boolean ValidarUsuario(String admin, String contra) {
         for (Usuario u : au.getUsuarios()) {
             if (u.getUser().equals(admin) && u.getContra().equals(contra)) {
+                actual = u.getUser();
                 if (u instanceof Artista) {
                     tipo = 1;
                 } else if (u instanceof Oyente) {
@@ -576,11 +914,11 @@ public class FrameP extends javax.swing.JFrame {
         }
         return false;
     }
-    
-    private void LlenarTree(){
-        
+
+    private void LlenarTree() {
+
     }
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -618,25 +956,51 @@ public class FrameP extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog AgregarC;
     private javax.swing.JLabel EditarL;
+    private javax.swing.JLabel EditarL1;
     private javax.swing.JPanel Iniciar_Registrar;
     private javax.swing.JPanel S_Artista;
+    private javax.swing.JPanel S_Oyente;
     private javax.swing.JPanel barra;
+    private javax.swing.JButton bt_agregarA;
+    private javax.swing.JButton bt_agregarS;
     private javax.swing.JButton bt_iniciar;
     private javax.swing.JButton bt_registrarA;
     private javax.swing.JButton bt_registrarO;
+    private javax.swing.JComboBox<String> cb_albumes;
+    private javax.swing.JComboBox<String> cb_canciones;
+    private javax.swing.JComboBox<String> cb_cat;
+    private javax.swing.JLabel crearC;
+    private javax.swing.JLabel crearC1;
     private javax.swing.JLabel crearL;
+    private javax.swing.JLabel crearL1;
     private javax.swing.JLabel eliminarL;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel eliminarL1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTree jTree1;
     private javax.swing.JTree jt_artista;
+    private javax.swing.JPanel pn_album;
     private javax.swing.JPanel pn_crearL;
     private javax.swing.JPanel pn_iniciarsesión;
     private javax.swing.JPanel pn_registrarA;

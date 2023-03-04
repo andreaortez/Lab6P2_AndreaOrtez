@@ -36,7 +36,7 @@ public class AdministrarU {
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
-            fw = new FileWriter(archivo, true);
+            fw = new FileWriter(archivo, false);
             bw = new BufferedWriter(fw);
             for (Usuario u : usuarios) {
                 if (u instanceof Artista) {
@@ -54,10 +54,10 @@ public class AdministrarU {
                 }
             }
             bw.flush();
+            bw.close();
+            fw.close();
         } catch (Exception ex) {
         }
-        bw.close();
-        fw.close();
     }
 
     public void cargarArchivo() throws IOException {

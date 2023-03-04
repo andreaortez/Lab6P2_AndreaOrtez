@@ -3,13 +3,5 @@ brunom-> Artista-> Fri Mar 03 18:25:45 CST 2023
 andrea-> Oyente-> Fri Mar 03 18:25:45 CST 2023
 amy-> Oyente-> Fri Mar 03 18:25:45 CST 2023
 tatiana-> Oyente-> Fri Mar 03 18:27:32 CST 2023
-vanessa-> Oyente->Fri Mar 03 18:33:37 CST 2023
-brunom-> Artista-> Fri Mar 03 18:36:01 CST 2023
-brunom-> Artista-> Fri Mar 03 18:36:02 CST 2023
-brunom-> Artista-> Fri Mar 03 18:36:02 CST 2023
-brunom-> Artista-> Fri Mar 03 18:36:02 CST 2023
-taytay-> Artista-> Fri Mar 03 18:36:02 CST 2023
-taytay-> Artista-> Fri Mar 03 18:36:02 CST 2023
-taytay-> Artista-> Fri Mar 03 18:36:02 CST 2023
-taytay-> Artista-> Fri Mar 03 18:36:02 CST 2023
+vanessa-> Oyente-> Fri Mar 03 18:33:37 CST 2023
 mileyc-> Artista-> Fri Mar 03 18:36:02 CST 2023
