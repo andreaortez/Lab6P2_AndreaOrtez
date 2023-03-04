@@ -22,7 +22,7 @@ public class Single extends Lanzamiento{
 
     @Override
     public String toString() {
-        return "Single{" + "cancion=" + cancion + '}';
+        return cancion.toString();
     }
     
 }

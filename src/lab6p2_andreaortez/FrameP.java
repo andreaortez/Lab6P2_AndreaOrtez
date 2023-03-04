@@ -1003,6 +1003,15 @@ public class FrameP extends javax.swing.JFrame {
                 }
             }
             pn_album.setVisible(false);
+
+            cb_albumes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{}));
+            for (Lanzamiento c : al.getLanzamientos()) {
+                if (c instanceof Album) {
+                    DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_albumes.getModel();
+                    modelo.addElement(c.toString());
+                    cb_albumes.setModel(modelo);
+                }
+            }
         }
     }//GEN-LAST:event_bt_agregarSMouseClicked
 
@@ -1024,8 +1033,15 @@ public class FrameP extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(FrameP.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         pn_cancionesp.setVisible(true);
+
+        cb_songp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{}));
+        for (Cancion c : ac.getCanciones()) {
+            DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_albumes.getModel();
+            modelo.addElement(c.toString());
+            cb_songp.setModel(modelo);
+        }
     }//GEN-LAST:event_bt_agregarPMouseClicked
 
     private boolean ValidarUsuario(String admin, String contra) {
