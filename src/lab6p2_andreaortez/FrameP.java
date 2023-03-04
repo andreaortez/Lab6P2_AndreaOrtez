@@ -982,7 +982,10 @@ public class FrameP extends javax.swing.JFrame {
     }//GEN-LAST:event_crearC1MouseClicked
 
     private void crearL1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearL1MouseClicked
-        // TODO add your handling code here:
+        AgregarL.setVisible(true);
+        AgregarL.pack();
+        AgregarL.setLocationRelativeTo(this);
+        AgregarL.setVisible(true);
     }//GEN-LAST:event_crearL1MouseClicked
 
     private void eliminarL1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarL1MouseClicked
