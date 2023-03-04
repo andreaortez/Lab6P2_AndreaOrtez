@@ -53,6 +53,15 @@ public class FrameP extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         cb_albumes = new javax.swing.JComboBox<>();
         bt_agregarC = new javax.swing.JButton();
+        AgregarL = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        tf_nombre = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        cb_songp = new javax.swing.JComboBox<>();
+        bt_agregarP = new javax.swing.JButton();
+        pn_cancionesp = new javax.swing.JPanel();
         S_Oyente = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         crearC1 = new javax.swing.JLabel();
@@ -155,6 +164,66 @@ public class FrameP extends javax.swing.JFrame {
         AgregarCLayout.setVerticalGroup(
             AgregarCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+        );
+
+        jPanel3.setBackground(new java.awt.Color(32, 32, 32));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel13.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Agregar Lista");
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, -1, -1));
+
+        jLabel14.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Nombre");
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, -1));
+
+        tf_nombre.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel3.add(tf_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 370, -1));
+
+        jLabel15.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Canción");
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, -1, 30));
+
+        cb_songp.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel3.add(cb_songp, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 370, -1));
+
+        bt_agregarP.setBackground(new java.awt.Color(25, 187, 81));
+        bt_agregarP.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        bt_agregarP.setText("Agregar");
+        bt_agregarP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_agregarPMouseClicked(evt);
+            }
+        });
+        jPanel3.add(bt_agregarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, -1, 40));
+
+        pn_cancionesp.setBackground(new java.awt.Color(32, 32, 32));
+
+        javax.swing.GroupLayout pn_cancionespLayout = new javax.swing.GroupLayout(pn_cancionesp);
+        pn_cancionesp.setLayout(pn_cancionespLayout);
+        pn_cancionespLayout.setHorizontalGroup(
+            pn_cancionespLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 660, Short.MAX_VALUE)
+        );
+        pn_cancionespLayout.setVerticalGroup(
+            pn_cancionespLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(pn_cancionesp, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 660, 160));
+
+        javax.swing.GroupLayout AgregarLLayout = new javax.swing.GroupLayout(AgregarL.getContentPane());
+        AgregarL.getContentPane().setLayout(AgregarLLayout);
+        AgregarLLayout.setHorizontalGroup(
+            AgregarLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+        );
+        AgregarLLayout.setVerticalGroup(
+            AgregarLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -730,11 +799,10 @@ public class FrameP extends javax.swing.JFrame {
 
                     for (Cancion c : ((Oyente) actual).getCancionesf()) {
                         modelo.addElement(c.getTitulo());
-                        jl_canciones.setModel(modelo);
                     }
+                    jl_canciones.setModel(modelo);
                     break;
             }
-
         } else {
             JOptionPane.showMessageDialog(this, "No existe este usuario");
         }
@@ -948,6 +1016,18 @@ public class FrameP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bt_agregarCMouseClicked
 
+    private void bt_agregarPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_agregarPMouseClicked
+        Lista l = new Lista(tf_nombre.getText(), 0, actual.toString());
+        ap.getPlaylists().add(l);
+        try {
+            ap.escribirArchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(FrameP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        pn_cancionesp.setVisible(true);
+    }//GEN-LAST:event_bt_agregarPMouseClicked
+
     private boolean ValidarUsuario(String admin, String contra) {
         for (Usuario u : au.getUsuarios()) {
             if (u.getUser().equals(admin) && u.getContra().equals(contra)) {
@@ -1001,6 +1081,7 @@ public class FrameP extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog AgregarC;
+    private javax.swing.JDialog AgregarL;
     private javax.swing.JLabel EditarL;
     private javax.swing.JLabel EditarL1;
     private javax.swing.JPanel Iniciar_Registrar;
@@ -1009,6 +1090,7 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JPanel barra;
     private javax.swing.JButton bt_agregarC;
     private javax.swing.JButton bt_agregarL;
+    private javax.swing.JButton bt_agregarP;
     private javax.swing.JButton bt_agregarS;
     private javax.swing.JButton bt_iniciar;
     private javax.swing.JButton bt_registrarA;
@@ -1016,6 +1098,7 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb_albumes;
     private javax.swing.JComboBox<String> cb_canciones;
     private javax.swing.JComboBox<String> cb_cat;
+    private javax.swing.JComboBox<String> cb_songp;
     private javax.swing.JLabel crearC;
     private javax.swing.JLabel crearC1;
     private javax.swing.JLabel crearL;
@@ -1026,6 +1109,9 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1036,6 +1122,7 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1043,6 +1130,7 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JTree jt_artista;
     private javax.swing.JTree jt_oyente;
     private javax.swing.JPanel pn_album;
+    private javax.swing.JPanel pn_cancionesp;
     private javax.swing.JPanel pn_crearL;
     private javax.swing.JPanel pn_iniciarsesión;
     private javax.swing.JPanel pn_registrarA;
@@ -1053,6 +1141,7 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JTextField tf_edadA;
     private javax.swing.JTextField tf_edadO;
     private javax.swing.JTextField tf_fecha;
+    private javax.swing.JTextField tf_nombre;
     private javax.swing.JTextField tf_nombreA;
     private javax.swing.JTextField tf_time;
     private javax.swing.JTextField tf_title;
