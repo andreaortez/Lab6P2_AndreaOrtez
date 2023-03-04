@@ -60,9 +60,9 @@ public class FrameP extends javax.swing.JFrame {
         eliminarL1 = new javax.swing.JLabel();
         EditarL1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        jt_oyente = new javax.swing.JTree();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jl_canciones = new javax.swing.JList<>();
         S_Artista = new javax.swing.JPanel();
         pn_crearL = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -224,16 +224,13 @@ public class FrameP extends javax.swing.JFrame {
 
         S_Oyente.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 720));
 
-        jScrollPane2.setViewportView(jTree1);
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Listas");
+        jt_oyente.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane2.setViewportView(jt_oyente);
 
         S_Oyente.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 350, 630));
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList1);
+        jScrollPane3.setViewportView(jl_canciones);
 
         S_Oyente.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 60, 370, 620));
 
@@ -338,7 +335,7 @@ public class FrameP extends javax.swing.JFrame {
         jt_artista.setBackground(new java.awt.Color(51, 51, 51));
         jt_artista.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jt_artista.setForeground(new java.awt.Color(255, 255, 255));
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Lanzamientos");
+        treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Lanzamientos");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Albumes");
         treeNode1.add(treeNode2);
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Singles");
@@ -699,33 +696,45 @@ public class FrameP extends javax.swing.JFrame {
                     pn_crearL.setVisible(false);
                     pn_album.setVisible(false);
                     barra.setVisible(true);
+
+                    DefaultTreeModel m = (DefaultTreeModel) jt_artista.getModel();
+                    DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
+
+                    for (Lanzamiento l : ((Artista) actual).getLanzamientos()) {
+                        if (l instanceof Album) {
+                            for (int i = 0; i < raiz.getChildCount(); i++) {
+                                if (("Albumes").equals(raiz.getChildAt(i).toString())) {
+                                    for (Cancion c : ((Album) l).getCanciones()) {
+                                        ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(new DefaultMutableTreeNode(c.getTitulo()));
+                                    }
+                                }
+                            }
+                        } else {
+                            for (int i = 0; i < raiz.getChildCount(); i++) {
+                                if (("Single").equals(raiz.getChildAt(i).toString())) {
+                                    for (Cancion c : ((Album) l).getCanciones()) {
+                                        ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(new DefaultMutableTreeNode(c.getTitulo()));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    m.reload();
                     break;
                 case 2://oyente
                     Iniciar_Registrar.setVisible(false);
                     S_Artista.setVisible(false);
                     S_Oyente.setVisible(true);
+
+                    DefaultListModel modelo = (DefaultListModel) jl_canciones.getModel();
+
+                    for (Cancion c : ((Oyente) actual).getCancionesf()) {
+                        modelo.addElement(c.getTitulo());
+                        jl_canciones.setModel(modelo);
+                    }
                     break;
             }
 
-            DefaultTreeModel m = (DefaultTreeModel) jt_artista.getModel();
-            DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
-
-            for (Lanzamiento l : ((Artista) actual).getLanzamientos()) {
-                if (l instanceof Album) {
-                    for (int i = 0; i < raiz.getChildCount(); i++) {
-                        if (("Álbum").equals(raiz.getChildAt(i).toString())) {
-                            ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(new DefaultMutableTreeNode(l.getTitulo()));
-                        }
-                    }
-                } else {
-                    for (int i = 0; i < raiz.getChildCount(); i++) {
-                        if (("Single").equals(raiz.getChildAt(i).toString())) {
-                            ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(new DefaultMutableTreeNode(l.getTitulo()));
-                        }
-                    }
-                }
-            }
-            m.reload();
         } else {
             JOptionPane.showMessageDialog(this, "No existe este usuario");
         }
@@ -893,7 +902,17 @@ public class FrameP extends javax.swing.JFrame {
     }//GEN-LAST:event_crearL1MouseClicked
 
     private void eliminarL1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarL1MouseClicked
-        // TODO add your handling code here:
+        if (jt_oyente.getSelectionCount() >= 0) {
+            int response = JOptionPane.showConfirmDialog(this, "Seguro de Eliminar?", "Confirm",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (response == JOptionPane.OK_OPTION) {
+                DefaultTreeModel modelo = (DefaultTreeModel) jt_oyente.getModel();
+                modelo.removeNodeFromParent(nodo_seleccionado);
+                jt_oyente.setModel((TreeModel) modelo);
+                JOptionPane.showMessageDialog(this, "Eliminado exitosamente");
+            }
+        }
     }//GEN-LAST:event_eliminarL1MouseClicked
 
     private void bt_agregarSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_agregarSMouseClicked
@@ -932,7 +951,7 @@ public class FrameP extends javax.swing.JFrame {
     private boolean ValidarUsuario(String admin, String contra) {
         for (Usuario u : au.getUsuarios()) {
             if (u.getUser().equals(admin) && u.getContra().equals(contra)) {
-//                actual = u.getUser();
+                actual = u;
                 if (u instanceof Artista) {
                     tipo = 1;
                 } else if (u instanceof Oyente) {
@@ -1015,14 +1034,14 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTree jTree1;
+    private javax.swing.JList<String> jl_canciones;
     private javax.swing.JTree jt_artista;
+    private javax.swing.JTree jt_oyente;
     private javax.swing.JPanel pn_album;
     private javax.swing.JPanel pn_crearL;
     private javax.swing.JPanel pn_iniciarsesión;
