@@ -535,7 +535,7 @@
                               <Component id="bt_agregarS" min="-2" max="-2" attributes="0"/>
                               <Component id="cb_canciones" min="-2" pref="296" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="60" max="32767" attributes="0"/>
+                          <EmptySpace pref="79" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -563,7 +563,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Canciones"/>
+                    <Property name="text" type="java.lang.String" value="Canci&#xf3;n"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cb_canciones">

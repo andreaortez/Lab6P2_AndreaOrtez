@@ -278,7 +278,7 @@ public class FrameP extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Canciones");
+        jLabel8.setText("Canción");
 
         cb_canciones.setBackground(new java.awt.Color(51, 51, 51));
         cb_canciones.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -304,7 +304,7 @@ public class FrameP extends javax.swing.JFrame {
                 .addGroup(pn_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bt_agregarS)
                     .addComponent(cb_canciones, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         pn_albumLayout.setVerticalGroup(
             pn_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -717,7 +717,7 @@ public class FrameP extends javax.swing.JFrame {
                             ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(new DefaultMutableTreeNode(l.getTitulo()));
                         }
                     }
-                }else{
+                } else {
                     for (int i = 0; i < raiz.getChildCount(); i++) {
                         if (("Single").equals(raiz.getChildAt(i).toString())) {
                             ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(new DefaultMutableTreeNode(l.getTitulo()));
@@ -832,9 +832,16 @@ public class FrameP extends javax.swing.JFrame {
                 cb_canciones.setModel(modelo);
             }
         } else {
+            al.getLanzamientos().add(new Single());
 
+            pn_album.setVisible(true);
+            cb_canciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{}));
+            for (Cancion c : ac.getCanciones()) {
+                DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_canciones.getModel();
+                modelo.addElement(c);
+                cb_canciones.setModel(modelo);
+            }
         }
-
         try {
             al.escribirArchivo();
         } catch (IOException ex) {
@@ -890,14 +897,26 @@ public class FrameP extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarL1MouseClicked
 
     private void bt_agregarSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_agregarSMouseClicked
-        int p = al.getLanzamientos().size() - 1;
-        Cancion c = new Cancion();
-        for (Cancion s : ac.getCanciones()) {
-            if (s.getTitulo().equals(cb_canciones.getSelectedItem().toString())) {
-                c = s;
+        if (cb_cat.getSelectedItem().toString().equals("Álbum")) {
+            int p = al.getLanzamientos().size() - 1;
+
+            Cancion c = new Cancion();
+            for (Cancion s : ac.getCanciones()) {
+                if (s.getTitulo().equals(cb_canciones.getSelectedItem().toString())) {
+                    c = s;
+                }
             }
+            ((Album) al.getLanzamientos().get(p)).getCanciones().add(c);
+        } else {
+            int p = al.getLanzamientos().size() - 1;
+            for (Cancion c : ac.getCanciones()) {
+                if (c.getTitulo().equals(cb_canciones.getSelectedItem().toString())) {
+                    Single s = new Single(c, tf_titulo.getText(), tf_fecha.getText(), 0);
+                    al.getLanzamientos().set(p, s);
+                }
+            }
+            pn_album.setVisible(false);
         }
-        ((Album) al.getLanzamientos().get(p)).getCanciones().add(c);
     }//GEN-LAST:event_bt_agregarSMouseClicked
 
     private void bt_agregarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_agregarCMouseClicked
@@ -924,7 +943,6 @@ public class FrameP extends javax.swing.JFrame {
         }
         return false;
     }
-
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
