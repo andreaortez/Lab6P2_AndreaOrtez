@@ -36,7 +36,7 @@ public class AdministrarC {
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
-            fw = new FileWriter(archivo, true);
+            fw = new FileWriter(archivo, false);
             bw = new BufferedWriter(fw);
             for (Cancion l : canciones) {
                 bw.write(l.getTitulo() + "|");

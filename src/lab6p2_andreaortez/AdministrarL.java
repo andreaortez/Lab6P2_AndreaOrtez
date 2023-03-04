@@ -35,7 +35,7 @@ public class AdministrarL {
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
-            fw = new FileWriter(archivo, true);
+            fw = new FileWriter(archivo, false);
             bw = new BufferedWriter(fw);
             for (Lanzamiento l : lanzamientos) {
                 if (l instanceof Album) {

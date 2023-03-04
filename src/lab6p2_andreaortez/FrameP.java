@@ -60,8 +60,9 @@ public class FrameP extends javax.swing.JFrame {
         tf_nombre = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         cb_songp = new javax.swing.JComboBox<>();
-        bt_agregarP = new javax.swing.JButton();
         pn_cancionesp = new javax.swing.JPanel();
+        bt_agregarCP = new javax.swing.JButton();
+        bt_agregarP = new javax.swing.JButton();
         S_Oyente = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         crearC1 = new javax.swing.JLabel();
@@ -190,6 +191,36 @@ public class FrameP extends javax.swing.JFrame {
         cb_songp.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jPanel3.add(cb_songp, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 370, -1));
 
+        pn_cancionesp.setBackground(new java.awt.Color(32, 32, 32));
+
+        bt_agregarCP.setBackground(new java.awt.Color(25, 187, 81));
+        bt_agregarCP.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        bt_agregarCP.setText("Agregar Canción");
+        bt_agregarCP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_agregarCPMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pn_cancionespLayout = new javax.swing.GroupLayout(pn_cancionesp);
+        pn_cancionesp.setLayout(pn_cancionespLayout);
+        pn_cancionespLayout.setHorizontalGroup(
+            pn_cancionespLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_cancionespLayout.createSequentialGroup()
+                .addContainerGap(264, Short.MAX_VALUE)
+                .addComponent(bt_agregarCP)
+                .addGap(216, 216, 216))
+        );
+        pn_cancionespLayout.setVerticalGroup(
+            pn_cancionespLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_cancionespLayout.createSequentialGroup()
+                .addContainerGap(109, Short.MAX_VALUE)
+                .addComponent(bt_agregarCP, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel3.add(pn_cancionesp, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 660, 160));
+
         bt_agregarP.setBackground(new java.awt.Color(25, 187, 81));
         bt_agregarP.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         bt_agregarP.setText("Agregar");
@@ -198,22 +229,7 @@ public class FrameP extends javax.swing.JFrame {
                 bt_agregarPMouseClicked(evt);
             }
         });
-        jPanel3.add(bt_agregarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, -1, 40));
-
-        pn_cancionesp.setBackground(new java.awt.Color(32, 32, 32));
-
-        javax.swing.GroupLayout pn_cancionespLayout = new javax.swing.GroupLayout(pn_cancionesp);
-        pn_cancionesp.setLayout(pn_cancionespLayout);
-        pn_cancionespLayout.setHorizontalGroup(
-            pn_cancionespLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 660, Short.MAX_VALUE)
-        );
-        pn_cancionespLayout.setVerticalGroup(
-            pn_cancionespLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
-        );
-
-        jPanel3.add(pn_cancionesp, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 660, 160));
+        jPanel3.add(bt_agregarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, -1, 40));
 
         javax.swing.GroupLayout AgregarLLayout = new javax.swing.GroupLayout(AgregarL.getContentPane());
         AgregarL.getContentPane().setLayout(AgregarLLayout);
@@ -1044,6 +1060,23 @@ public class FrameP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bt_agregarPMouseClicked
 
+    private void bt_agregarCPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_agregarCPMouseClicked
+        int pos = ap.getPlaylists().size()-1;
+        Cancion c= new Cancion();
+        for (Cancion s : ac.getCanciones()) {
+            if (s.getTitulo().equals(cb_songp.getSelectedItem().toString())) {
+                c=s;
+            }
+        }
+        ap.getPlaylists().get(pos).getCanciones().add(c);
+        
+        try {
+            ap.escribirArchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(FrameP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bt_agregarCPMouseClicked
+
     private boolean ValidarUsuario(String admin, String contra) {
         for (Usuario u : au.getUsuarios()) {
             if (u.getUser().equals(admin) && u.getContra().equals(contra)) {
@@ -1105,6 +1138,7 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JPanel S_Oyente;
     private javax.swing.JPanel barra;
     private javax.swing.JButton bt_agregarC;
+    private javax.swing.JButton bt_agregarCP;
     private javax.swing.JButton bt_agregarL;
     private javax.swing.JButton bt_agregarP;
     private javax.swing.JButton bt_agregarS;
